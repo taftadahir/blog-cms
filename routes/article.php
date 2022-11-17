@@ -12,5 +12,5 @@ Route::controller(ArticleController::class)->middleware('auth')->name('articles.
 	Route::get('/articles/{article}/edit', 'edit')->name('edit');
 	Route::put('/articles/{article}', 'update')->name('update');
 
-	// Route::delete('/articles/{article}', 'destroy')->name('destroy'); 
+	Route::delete('/articles/{article}', 'destroy')->name('destroy');
 });

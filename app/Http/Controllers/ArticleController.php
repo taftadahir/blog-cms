@@ -156,6 +156,11 @@ class ArticleController extends Controller
 
 	public function destroy(Article $article)
 	{
+		$user = User::find(auth()->id());
+		$article->deletedBy()->associate($user)->save();
+		$article->delete();
+
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 
 	public function sysid($validated)
