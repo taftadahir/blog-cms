@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
 				ArticleSeeder::class
 			]);
 		}
+
+		# prod and dev envs
+		$this->call([
+			PermissionSeeder::class
+		]);
 	}
 }
