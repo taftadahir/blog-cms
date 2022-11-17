@@ -36,4 +36,9 @@ class User extends Authenticatable
 			get: fn ($value) => $value == 1,
 		);
 	}
+
+	public function createdArticles()
+	{
+		return $this->hasMany(Article::class, 'created_by');
+	}
 }

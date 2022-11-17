@@ -9,9 +9,11 @@ class DatabaseSeeder extends Seeder
 {
 	public function run()
 	{
+		# dev env
 		if (App::environment('local')) {
 			$this->call([
-				UserSeeder::class
+				UserSeeder::class,
+				ArticleSeeder::class
 			]);
 		}
 	}
