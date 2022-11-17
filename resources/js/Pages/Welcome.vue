@@ -31,6 +31,12 @@ defineProps({
                 class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                 >Create Article</Link
             >
+            <Link
+                v-if="$page.props.auth.user"
+                :href="route('articles.edit', { article: 1 })"
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                >Update Article 1</Link
+            >
 
             <template v-else>
                 <Link

@@ -33,11 +33,13 @@ return new class extends Migration
 			$table->foreignId('updated_by')->nullable()->constrained('users')->after('created_by');
 			$table->foreignId('published_by')->nullable()->constrained('users')->after('updated_by');
 			$table->foreignId('archived_by')->nullable()->constrained('users')->after('published_by');
+			$table->foreignId('outdated_by')->nullable()->constrained('users')->after('archived_by');
 			$table->foreignId('deleted_by')->nullable()->constrained('users')->after('archived_by');
 
 			$table->timestamps();
 			$table->timestamp('published_at')->nullable();
 			$table->timestamp('archived_at')->nullable();
+			$table->timestamp('outdated_at')->nullable();
 			$table->softDeletes();
 		});
 	}

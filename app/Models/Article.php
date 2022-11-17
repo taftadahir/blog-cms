@@ -61,6 +61,11 @@ class Article extends Model
 		return $this->belongsTo(User::class, 'archived_by');
 	}
 
+	public function outdatedBy()
+	{
+		return $this->belongsTo(User::class, 'outdated_by');
+	}
+
 	public function deletedBy()
 	{
 		return $this->belongsTo(User::class, 'deleted_by');

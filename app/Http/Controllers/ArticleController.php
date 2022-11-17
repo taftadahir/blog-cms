@@ -86,10 +86,72 @@ class ArticleController extends Controller
 
 	public function edit(Article $article)
 	{
+		$statuses = array_filter(
+			ArticleStatus::ALL,
+			fn ($key) => in_array($key, [
+				ArticleStatus::DRAFT,
+				ArticleStatus::PUBLISHED,
+				ArticleStatus::PRIVATE,
+				ArticleStatus::ARCHIVED,
+				ArticleStatus::OUTDATED,
+			], true,),
+			ARRAY_FILTER_USE_KEY
+		);
+
+		$contentTypes = ArticleContentType::ALL;
+
+		$articles = Article::all(['id', 'title']);
+
+		return Inertia::render('Article/Edit', [
+			'statuses' => $statuses,
+			'contentTypes' => $contentTypes,
+			'articles' => $articles,
+			'article' => $article,
+		]);
 	}
 
 	public function update(UpdateArticleRequest $request, Article $article)
 	{
+		$validated = $request->validated();
+		$user = User::find(auth()->id());
+
+		# remove required fields which are null in the validated data but it should not be null
+		$validated =  array_filter($validated, function ($value, $key) {
+			if ($key == 'title' || $key == 'slug' || $key == 'content_type' || $key == 'status') {
+				return !is_null($value);
+			}
+			return true;
+		}, ARRAY_FILTER_USE_BOTH);
+
+		if (isset($validated['parent_id'])) {
+			$parent = Article::find($validated['parent_id']);
+			$article->parent()->associate($parent);
+		}
+
+		# status
+		if (isset($validated['status'])) {
+			if ($validated['status'] == ArticleStatus::ARCHIVED) {
+				$validated['archived_at'] = Carbon::now();
+				$article->archivedBy()->associate($user);
+			}
+
+			if ($validated['status'] == ArticleStatus::PUBLISHED) {
+				$validated['published_at'] = Carbon::now();
+				$article->publishedBy()->associate($user);
+			}
+
+			if ($validated['status'] == ArticleStatus::OUTDATED) {
+				$validated['outdated_at'] = Carbon::now();
+				$article->outdatedBy()->associate($user);
+			}
+		}
+
+		# sysid
+		$validated = $this->sysid($validated);
+
+		$article->updatedBy()->associate($user);
+		$article->update($validated);
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 
 	public function destroy(Article $article)
