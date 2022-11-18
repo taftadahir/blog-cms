@@ -13,7 +13,6 @@ class RoleController extends Controller
 {
 	public function index()
 	{
-
 	}
 
 	public function create()
@@ -36,21 +35,34 @@ class RoleController extends Controller
 
 	public function show(Role $role)
 	{
-
 	}
 
 	public function edit(Role $role)
 	{
-
+		return Inertia::render('Role/Edit', [
+			'role' => $role
+		]);
 	}
 
 	public function update(UpdateRoleRequest $request, Role $role)
 	{
+		$validated = $request->validated();
+		$user = User::find(auth()->id());
 
+		# remove required fields which are null in the validated data but it should not be null
+		$validated =  array_filter($validated, function ($value, $key) {
+			if ($key == 'title' || $key == 'code') {
+				return !is_null($value);
+			}
+			return true;
+		}, ARRAY_FILTER_USE_BOTH);
+
+		$role->updatedBy()->associate($user);
+		$role->update($validated);
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 
 	public function destroy(Role $role)
 	{
-
 	}
 }

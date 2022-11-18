@@ -50,7 +50,14 @@ defineProps({
                 :href="route('roles.create')"
                 class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                 >Create Role</Link
-            > | 
+			> 
+            <Link
+                v-if="$page.props.auth.user"
+                :href="route('roles.edit', { role: 1 })"
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                >Update role 1</Link
+            >
+			|
             <Link
                 v-if="$page.props.auth.user"
                 :href="route('permission.role.create')"
