@@ -41,4 +41,9 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Article::class, 'created_by');
 	}
+
+	# public function roles()
+	#     {
+	#         return $this->belongsToMany(Role::class);
+	#     }
 }
