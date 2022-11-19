@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ArticleController;
 
 Route::controller(ArticleController::class)->middleware('auth')->name('articles.')->group(function () {
-	// Route::get('/articles', 'index')->name('index');
+	Route::get('/article/{article}', 'show')->name('show');
 
 	Route::get('/articles/create', 'create')->name('create');
 	Route::post('/articles', 'store')->name('store');

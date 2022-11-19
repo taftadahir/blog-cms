@@ -46,4 +46,15 @@ class User extends Authenticatable
 	{
 		return $this->belongsTo(Role::class, 'role_id');
 	}
+
+	public function hasPermission(string $permission = null): bool
+	{
+		$role = $this->role()->first();
+		$permissionInstance = $role->permissions()->where('code', $permission)->first();
+
+		if ($permissionInstance && $permission) {
+			return true;
+		}
+		return false;
+	}
 }

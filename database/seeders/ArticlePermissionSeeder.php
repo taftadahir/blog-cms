@@ -16,9 +16,9 @@ class ArticlePermissionSeeder extends Seeder
 			'title' => 'Create article',
 			'code' => 'create-article',
 		]);
-		$view = Permission::create([
-			'title' => 'View article',
-			'code' => 'view-article',
+		$viewAny = Permission::create([
+			'title' => 'View any article',
+			'code' => 'view-any-article',
 		]);
 		$update = Permission::create([
 			'title' => 'Update article',
@@ -39,7 +39,7 @@ class ArticlePermissionSeeder extends Seeder
 			$permissionRole->save();
 
 			$permissionRole = $permissionRole->replicate();
-			$permissionRole->permission()->associate($view);
+			$permissionRole->permission()->associate($viewAny);
 			$permissionRole->save();
 
 			$permissionRole = $permissionRole->replicate();
@@ -48,15 +48,6 @@ class ArticlePermissionSeeder extends Seeder
 
 			$permissionRole = $permissionRole->replicate();
 			$permissionRole->permission()->associate($delete);
-			$permissionRole->save();
-		}
-
-		$subscriberRole = Role::where('code', 'subscriber')->first();
-		if($subscriberRole){
-			$permissionRole = new PermissionRole();
-
-			$permissionRole->role()->associate($subscriberRole);
-			$permissionRole->permission()->associate($view);
 			$permissionRole->save();
 		}
 	}

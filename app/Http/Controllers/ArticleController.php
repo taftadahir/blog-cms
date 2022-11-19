@@ -82,6 +82,8 @@ class ArticleController extends Controller
 
 	public function show(Article $article)
 	{
+		$this->authorize('view', $article);
+		return $article;
 	}
 
 	public function edit(Article $article)
@@ -156,6 +158,8 @@ class ArticleController extends Controller
 
 	public function destroy(Article $article)
 	{
+		$this->authorize('delete', Article::class);
+
 		$user = User::find(auth()->id());
 		$article->deletedBy()->associate($user)->save();
 		$article->delete();

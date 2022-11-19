@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Article;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
@@ -9,7 +10,7 @@ class StoreArticleRequest extends FormRequest
 {
 	public function authorize()
 	{
-		return true;
+		return $this->user()->can('create', Article::class);
 	}
 
 	protected function prepareForValidation()
