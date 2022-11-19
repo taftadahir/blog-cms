@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
 		# prod and dev envs
 		$this->call([
 			ArticlePermissionSeeder::class,
+			RolePermissionSeeder::class
 		]);
 	}
 }
