@@ -9,6 +9,11 @@ class DatabaseSeeder extends Seeder
 {
 	public function run()
 	{
+		# prod and dev envs
+		$this->call([
+			RoleSeeder::class,
+		]);
+
 		# dev env
 		if (App::environment('local')) {
 			$this->call([
@@ -19,9 +24,6 @@ class DatabaseSeeder extends Seeder
 
 		# prod and dev envs
 		$this->call([
-			RoleSeeder::class,
-			RoleUserSeeder::class,
-
 			ArticlePermissionSeeder::class,
 		]);
 	}
