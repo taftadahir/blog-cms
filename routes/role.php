@@ -9,4 +9,6 @@ Route::controller(RoleController::class)->middleware('auth')->name('roles.')->gr
 
 	Route::get('/roles/{role}/edit', 'edit')->name('edit');
 	Route::put('/roles/{role}', 'update')->name('update');
+
+	Route::delete('/roles/{role}', 'destroy')->name('destroy');
 });

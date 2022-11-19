@@ -64,5 +64,10 @@ class RoleController extends Controller
 
 	public function destroy(Role $role)
 	{
+		$user = User::find(auth()->id());
+		$role->deletedBy()->associate($user)->save();
+		$role->delete();
+
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 }

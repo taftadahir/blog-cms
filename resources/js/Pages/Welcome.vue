@@ -57,7 +57,14 @@ defineProps({
                 class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                 >Update role 1</Link
             >
-			|
+            <Link
+                v-if="$page.props.auth.user"
+                :href="route('roles.destroy', { role: 1 })"
+                as="button"
+                method="delete"
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                >Delete role 1</Link
+            > | 
             <Link
                 v-if="$page.props.auth.user"
                 :href="route('permission.role.create')"
@@ -71,6 +78,22 @@ defineProps({
                 class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                 >Create role user</Link
             >
+            <Link
+                v-if="$page.props.auth.user"
+                :href="route('role.user.destroy', { role_user: 1 })"
+                as="button"
+                method="delete"
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                >Delete role user 1</Link
+            > 
+            <Link
+                v-if="$page.props.auth.user"
+                :href="route('permission.role.destroy', { permission_role: 1 })"
+                as="button"
+                method="delete"
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                >Delete permission role 1</Link
+            > 
 
             <template v-else>
                 <Link

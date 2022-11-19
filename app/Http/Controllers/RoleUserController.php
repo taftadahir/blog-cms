@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleUserRequest;
-use App\Http\Requests\UpdateRoleUserRequest;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -58,18 +57,9 @@ class RoleUserController extends Controller
 
     }
 
-    public function edit(RoleUser $roleUser)
-	{
-
-    }
-
-    public function update(UpdateRoleUserRequest $request, RoleUser $roleUser)
-	{
-
-    }
-
     public function destroy(RoleUser $roleUser)
 	{
-
+		$roleUser->delete();
+		return redirect()->route(RouteServiceProvider::HOME);
     }
 }

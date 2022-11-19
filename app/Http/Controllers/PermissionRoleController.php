@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePermissionRoleRequest;
-use App\Http\Requests\UpdatePermissionRoleRequest;
 use App\Models\Permission;
 use App\Models\PermissionRole;
 use App\Models\Role;
@@ -59,18 +58,9 @@ class PermissionRoleController extends Controller
 
 	}
 
-	public function edit(PermissionRole $permissionRole)
-	{
-
-	}
-
-	public function update(UpdatePermissionRoleRequest $request, PermissionRole $permissionRole)
-	{
-
-	}
-
 	public function destroy(PermissionRole $permissionRole)
 	{
-
+		$permissionRole->delete();
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 }
