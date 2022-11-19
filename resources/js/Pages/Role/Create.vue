@@ -18,7 +18,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Create an article" />
+        <Head title="Create an role" />
 
         <form @submit.prevent="submit">
             <div class="mt-4">

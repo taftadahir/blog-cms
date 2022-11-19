@@ -60,6 +60,7 @@ class PermissionRoleController extends Controller
 
 	public function destroy(PermissionRole $permissionRole)
 	{
+		$this->authorize('removePermissionFromRole', Role::class);
 		$permissionRole->delete();
 		return redirect()->route(RouteServiceProvider::HOME);
 	}

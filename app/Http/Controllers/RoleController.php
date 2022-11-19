@@ -35,6 +35,8 @@ class RoleController extends Controller
 
 	public function show(Role $role)
 	{
+		$this->authorize('view-any', Role::class);
+		return $role;
 	}
 
 	public function edit(Role $role)
@@ -64,6 +66,8 @@ class RoleController extends Controller
 
 	public function destroy(Role $role)
 	{
+		$this->authorize('delete', Role::class);
+
 		$user = User::find(auth()->id());
 		$role->deletedBy()->associate($user)->save();
 		$role->delete();
