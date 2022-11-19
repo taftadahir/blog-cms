@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
 
 		# prod and dev envs
 		$this->call([
-			PermissionSeeder::class,
 			RoleSeeder::class,
 			RoleUserSeeder::class,
-			PermissionRoleSeeder::class
+
+			ArticlePermissionSeeder::class,
 		]);
 	}
 }
