@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreAssetRequest;
+use App\Http\Requests\UpdateAssetRequest;
+use App\Models\Asset;
+use App\Providers\RouteServiceProvider;
+use Inertia\Inertia;
+
+class AssetController extends Controller
+{
+	public function index()
+	{
+	}
+
+	public function create()
+	{
+		return Inertia::render('Asset/Create');
+	}
+
+	public function store(StoreAssetRequest $request)
+	{
+		$request->validated();
+
+		$file = $request->file('asset');
+		$extension = $file->clientExtension();
+		$file->store('assets', 'public');
+
+		Asset::create([
+			'name' => $file->hashName(),
+			'original_name' => $file->getClientOriginalName(),
+			'extension' => $extension
+		]);
+
+		return redirect()->route(RouteServiceProvider::HOME);
+	}
+
+	public function show(Asset $asset)
+	{
+	}
+
+	public function edit(Asset $asset)
+	{
+	}
+
+	public function update(UpdateAssetRequest $request, Asset $asset)
+	{
+	}
+
+	public function destroy(Asset $asset)
+	{
+	}
+}
