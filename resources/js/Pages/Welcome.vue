@@ -69,6 +69,11 @@ defineProps({
                 <Link :href="route('assets.edit', { asset: 1 })"
                     >Update asset 1</Link
                 >
+                <Link :href="route('assets.destroy', { asset: 1 })"
+                    as="button"
+                    method="delete"
+                    >Delete asset 1</Link
+                >
             </div>
 
             <template v-else>

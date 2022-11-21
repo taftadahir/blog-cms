@@ -9,4 +9,6 @@ Route::controller(AssetController::class)->middleware('auth')->name('assets.')->
 
 	Route::get('/assets/{asset}/edit', 'edit')->name('edit');
 	Route::put('/assets/{asset}', 'update')->name('update');
+
+	Route::delete('/assets/{asset}', 'destroy')->name('destroy');
 });
