@@ -42,10 +42,16 @@ class AssetController extends Controller
 
 	public function edit(Asset $asset)
 	{
+		return Inertia::render('Asset/Edit', compact('asset'));
 	}
 
 	public function update(UpdateAssetRequest $request, Asset $asset)
 	{
+		$validated = $request->validated();
+		
+		$asset->update($validated);
+
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 
 	public function destroy(Asset $asset)

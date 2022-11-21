@@ -66,6 +66,9 @@ defineProps({
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('assets.create')">Import asset</Link>
+                <Link :href="route('assets.edit', { asset: 1 })"
+                    >Update asset 1</Link
+                >
             </div>
 
             <template v-else>
