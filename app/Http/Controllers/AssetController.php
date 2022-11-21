@@ -26,10 +26,12 @@ class AssetController extends Controller
 		$file = $request->file('asset');
 		$extension = $file->clientExtension();
 		$file->store('assets', 'public');
+		$hashName = $file->hashName();
 
 		Asset::create([
-			'name' => $file->hashName(),
+			'name' => pathinfo($hashName, PATHINFO_FILENAME),
 			'original_name' => $file->getClientOriginalName(),
+			'filename' => $hashName,
 			'extension' => $extension
 		]);
 
@@ -48,7 +50,7 @@ class AssetController extends Controller
 	public function update(UpdateAssetRequest $request, Asset $asset)
 	{
 		$validated = $request->validated();
-		
+
 		$asset->update($validated);
 
 		return redirect()->route(RouteServiceProvider::HOME);

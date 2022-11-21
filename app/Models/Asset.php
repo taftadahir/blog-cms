@@ -13,6 +13,7 @@ class Asset extends Model
 	protected $fillable = [
 		'original_name',
 		'name',
+		'filename',
 		'extension'
 	];
 }
