@@ -46,10 +46,29 @@ class TagController extends Controller
 
 	public function edit(Tag $tag)
 	{
+		return Inertia::render('Tag/Edit', compact('tag'));
 	}
 
 	public function update(UpdateTagRequest $request, Tag $tag)
 	{
+		$validated = $request->validated();
+
+		# remove required fields which are null in the validated data but it should not be null
+		$validated =  array_filter($validated, function ($value, $key) {
+			if ($key == 'title' || $key == 'slug') {
+				return !is_null($value);
+			}
+			return true;
+		}, ARRAY_FILTER_USE_BOTH);
+
+		if (isset($validated['published']) && $validated['published'] == true) {
+			$validated['published_at'] = Carbon::now();
+			$user = User::find(auth()->id());
+			$tag->publishedBy()->associate($user);
+		}
+
+		$tag->update($validated);
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 
 	public function destroy(Tag $tag)

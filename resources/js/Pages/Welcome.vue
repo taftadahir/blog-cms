@@ -48,6 +48,9 @@ defineProps({
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('tags.create')">Create tag</Link>
+                <Link :href="route('tags.edit', { tag: 1 })"
+                    >Update tag 1</Link
+                >
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link v-if="$page.props.auth.user" :href="route('roles.create')"

@@ -3,28 +3,29 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class UpdateTagRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
+	public function authorize()
+	{
+		return true;
+	}
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
-    {
-        return [
-            //
-        ];
-    }
+	protected function prepareForValidation()
+	{
+		$this->merge([
+			'slug' => Str::slug($this->input('slug'))
+		]);
+	}
+
+	public function rules()
+	{
+		return [
+			'title' => ['string', 'nullable'],
+			'slug' => ['string', 'nullable', 'unique:App\Models\Tag,slug,' . $this->route('tag')->id],
+			'description' => ['string', 'nullable'],
+			'published' => ['boolean', 'nullable'],
+		];
+	}
 }
