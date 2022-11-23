@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+
+class StoreTagRequest extends FormRequest
+{
+	public function authorize()
+	{
+		return true;
+	}
+
+	protected function prepareForValidation()
+	{
+		$this->merge([
+			'slug' => Str::slug($this->input('slug'))
+		]);
+	}
+
+	public function rules()
+	{
+		return [
+			'title' => ['bail', 'string', 'required'],
+			'slug' => ['bail', 'string', 'required', 'unique:App\Models\Tag,slug'],
+			'description' => ['string', 'nullable'],
+			'published' => ['boolean', 'nullable'],
+		];
+	}
+}
