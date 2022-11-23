@@ -28,3 +28,4 @@ require __DIR__ . '/permission_role.php';
 require __DIR__ . '/asset.php';
 require __DIR__ . '/category.php';
 require __DIR__ . '/tag.php';
+require __DIR__ . '/setting.php';
