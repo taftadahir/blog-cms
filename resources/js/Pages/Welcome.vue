@@ -35,6 +35,9 @@ defineProps({
                 >
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
+                <Link :href="route('categories.create')">Create category</Link>
+            </div>
+            <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link v-if="$page.props.auth.user" :href="route('roles.create')"
                     >Create Role</Link
                 >
@@ -69,7 +72,8 @@ defineProps({
                 <Link :href="route('assets.edit', { asset: 1 })"
                     >Update asset 1</Link
                 >
-                <Link :href="route('assets.destroy', { asset: 1 })"
+                <Link
+                    :href="route('assets.destroy', { asset: 1 })"
                     as="button"
                     method="delete"
                     >Delete asset 1</Link
