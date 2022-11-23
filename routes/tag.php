@@ -9,4 +9,6 @@ Route::controller(TagController::class)->middleware('auth')->name('tags.')->grou
 
 	Route::get('/tags/{tag}/edit', 'edit')->name('edit');
 	Route::put('/tags/{tag}', 'update')->name('update');
+
+	Route::delete('/tags/{tag}', 'destroy')->name('destroy');
 });
