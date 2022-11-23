@@ -9,4 +9,6 @@ Route::controller(CategoryController::class)->middleware('auth')->name('categori
 
 	Route::get('/categories/{category}/edit', 'edit')->name('edit');
 	Route::put('/categories/{category}', 'update')->name('update');
+
+	Route::delete('/categorys/{category}', 'destroy')->name('destroy');
 });
