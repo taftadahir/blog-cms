@@ -42,6 +42,8 @@ class TagController extends Controller
 
 	public function show(Tag $tag)
 	{
+		$this->authorize('view', $tag);
+		return $tag;
 	}
 
 	public function edit(Tag $tag)
@@ -73,6 +75,7 @@ class TagController extends Controller
 
 	public function destroy(Tag $tag)
 	{
+		$this->authorize('delete', $tag);
 		$tag->delete();
 		return redirect()->route(RouteServiceProvider::HOME);
 	}

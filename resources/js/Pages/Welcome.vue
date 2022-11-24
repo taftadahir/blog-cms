@@ -67,6 +67,7 @@ defineProps({
                     method="delete"
                     >Delete tag 1</Link
                 >
+                <Link :href="route('tags.show', { tag: 1 })">Show tag 1</Link>
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link v-if="$page.props.auth.user" :href="route('roles.create')"

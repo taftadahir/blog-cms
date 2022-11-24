@@ -8,87 +8,46 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TagPolicy
 {
-    use HandlesAuthorization;
+	use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
+	private function viewAny(?User $user)
+	{
+		if ($user) {
+			return $user->hasPermission('view-any-tag');
+		}
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Tag $tag)
-    {
-        //
-    }
+		return false;
+	}
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        //
-    }
+	public function view(?User $user, Tag $tag)
+	{
+		if ($this->viewAny($user)) {
+			return true;
+		}
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, Tag $tag)
-    {
-        //
-    }
+		return $tag->published != 0;
+	}
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Tag $tag)
-    {
-        //
-    }
+	public function create(User $user)
+	{
+		return $user->hasPermission('create-tag');
+	}
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Tag $tag)
-    {
-        //
-    }
+	public function update(User $user)
+	{
+		return $user->hasPermission('update-tag');
+	}
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Tag $tag)
-    {
-        //
-    }
+	public function delete(User $user)
+	{
+		return $user->hasPermission('delete-tag');
+	}
+
+	public function restore(User $user, Tag $tag)
+	{
+	}
+
+	public function forceDelete(User $user, Tag $tag)
+	{
+	}
 }
