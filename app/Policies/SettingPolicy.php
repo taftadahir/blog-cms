@@ -8,87 +8,47 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SettingPolicy
 {
-    use HandlesAuthorization;
+	use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
+	private function viewAny(User $user)
+	{
+		if ($user) {
+			return $user->hasPermission('view-any-setting');
+		}
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Setting $setting)
-    {
-        //
-    }
+		return false;
+	}
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        //
-    }
+	public function view(User $user, Setting $setting)
+	{
+		if ($this->viewAny($user)) {
+			return true;
+		}
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, Setting $setting)
-    {
-        //
-    }
+		# user_id == null -> default for everybody
+		return $setting->user_id == $user->id || $setting->user_id == null;
+	}
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Setting $setting)
-    {
-        //
-    }
+	public function create(User $user)
+	{
+		return $user->hasPermission('create-setting');
+	}
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Setting $setting)
-    {
-        //
-    }
+	public function update(User $user, Setting $setting)
+	{
+		return $user->hasPermission('update-setting') || $setting->user_id == $user->id;
+	}
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Setting  $setting
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Setting $setting)
-    {
-        //
-    }
+	public function delete(User $user, Setting $setting)
+	{
+		return $user->hasPermission('delete-setting') || $setting->user_id == $user->id;
+	}
+
+	public function restore(User $user, Setting $setting)
+	{
+	}
+
+	public function forceDelete(User $user, Setting $setting)
+	{
+	}
 }

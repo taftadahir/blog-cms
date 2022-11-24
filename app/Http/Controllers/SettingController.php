@@ -37,6 +37,8 @@ class SettingController extends Controller
 
 	public function show(Setting $setting)
 	{
+		$this->authorize('view', $setting);
+		return $setting;
 	}
 
 	public function edit(Setting $setting)
@@ -70,6 +72,7 @@ class SettingController extends Controller
 
 	public function destroy(Setting $setting)
 	{
+		$this->authorize('delete', $setting);
 		$setting->delete();
 		return redirect()->route(RouteServiceProvider::HOME);
 	}
