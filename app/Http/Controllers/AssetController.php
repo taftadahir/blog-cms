@@ -58,6 +58,8 @@ class AssetController extends Controller
 
 	public function destroy(Asset $asset)
 	{
+		$this->authorize('delete', Asset::class);
+
 		$asset->delete();
 		return redirect()->route(RouteServiceProvider::HOME);
 	}
