@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
 			RolePermissionSeeder::class,
 			AssetPermissionSeeder::class,
 			TagPermissionSeeder::class,
+			CategoryPermissionSeeder::class,
 		]);
 	}
 }
