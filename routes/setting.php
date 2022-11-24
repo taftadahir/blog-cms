@@ -9,4 +9,6 @@ Route::controller(SettingController::class)->middleware('auth')->name('settings.
 
 	Route::get('/settings/{setting}/edit', 'edit')->name('edit');
 	Route::put('/settings/{setting}', 'update')->name('update');
+
+	Route::delete('/settings/{setting}', 'destroy')->name('destroy');
 });
