@@ -57,6 +57,9 @@ defineProps({
                     method="delete"
                     >Delete category 1</Link
                 >
+                <Link :href="route('categories.show', { category: 1 })"
+                    >Show category 1</Link
+                >
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('tags.create')">Create tag</Link>

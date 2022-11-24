@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
@@ -9,7 +10,7 @@ class UpdateCategoryRequest extends FormRequest
 {
 	public function authorize()
 	{
-		return true;
+		return $this->user()->can('update', Category::class);
 	}
 
 	protected function prepareForValidation()

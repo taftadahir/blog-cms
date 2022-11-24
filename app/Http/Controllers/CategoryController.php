@@ -48,6 +48,8 @@ class CategoryController extends Controller
 
 	public function show(Category $category)
 	{
+		$this->authorize('view', $category);
+		return $category;
 	}
 
 	public function edit(Category $category)
@@ -85,6 +87,7 @@ class CategoryController extends Controller
 
 	public function destroy(Category $category)
 	{
+		$this->authorize('delete', $category);
 		$category->delete();
 		return redirect()->route(RouteServiceProvider::HOME);
 	}
