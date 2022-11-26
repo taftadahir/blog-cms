@@ -13,6 +13,7 @@ return new class extends Migration
 			$table->foreignId('user_id')->nullable()->constrained('users');
 			$table->string('code');
 			$table->string('value')->nullable();
+			$table->string('description')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
