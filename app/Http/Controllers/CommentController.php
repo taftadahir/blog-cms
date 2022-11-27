@@ -49,10 +49,39 @@ class CommentController extends Controller
 
 	public function edit(Comment $comment)
 	{
+		$articles = Article::all();
+		$comments = Comment::all();
+		return Inertia::render('Comment/Edit', compact('articles', 'comments', 'comment'));
 	}
 
 	public function update(UpdateCommentRequest $request, Comment $comment)
 	{
+		$validated = $request->validated();
+
+		# remove required fields which are null in the validated data but it should not be null
+		$validated =  array_filter($validated, function ($value, $key) {
+			if ($key == 'content' || $key == 'article_id') {
+				return !is_null($value);
+			}
+			return true;
+		}, ARRAY_FILTER_USE_BOTH);
+
+		if (isset($validated['parent_id'])) {
+			if (is_null($validated['parent_id'])) {
+				$comment->parent()->disassociate();
+			} else {
+				$parent = Comment::find($validated['parent_id']);
+				$comment->parent()->associate($parent);
+			}
+		}
+
+		if (isset($validated['article_id']) && !is_null($validated['article_id']) && $validated['article_id'] != $comment->article_id) {
+			$article = Article::find($validated['article_id']);
+			$comment->article()->associate($article);
+		}
+
+		$comment->update($validated);
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 
 	public function destroy(Comment $comment)
