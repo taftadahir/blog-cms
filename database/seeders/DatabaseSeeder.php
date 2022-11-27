@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
 			CategoryPermissionSeeder::class,
 			SettingSeeder::class,
 			SettingPermissionSeeder::class,
+			LanguageSeeder::class,
 		]);
 	}
 }
