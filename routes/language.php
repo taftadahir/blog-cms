@@ -9,4 +9,6 @@ Route::controller(LanguageController::class)->middleware('auth')->name('language
 
 	Route::get('/languages/{language}/edit', 'edit')->name('edit');
 	Route::put('/languages/{language}', 'update')->name('update');
+
+	Route::delete('/languages/{language}', 'destroy')->name('destroy');
 });

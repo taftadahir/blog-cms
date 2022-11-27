@@ -53,5 +53,7 @@ class LanguageController extends Controller
 
 	public function destroy(Language $language)
 	{
+		$language->delete();
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 }
