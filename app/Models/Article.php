@@ -70,4 +70,9 @@ class Article extends Model
 	{
 		return $this->belongsTo(User::class, 'deleted_by');
 	}
+
+	public function comments()
+	{
+		return $this->hasMany(Comment::class);
+	}
 }

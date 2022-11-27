@@ -50,6 +50,9 @@ defineProps({
                 >
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
+                <Link :href="route('comments.create')">Create comment</Link>
+            </div>
+            <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('categories.create')">Create category</Link>
                 <Link :href="route('categories.edit', { category: 1 })"
                     >Update category 1</Link
@@ -124,6 +127,8 @@ defineProps({
                 <Link v-if="canRegister" :href="route('register')"
                     >Register</Link
                 >
+
+                <Link :href="route('comments.create')">Create comment</Link>
             </template>
         </div>
     </div>
