@@ -13,7 +13,7 @@ defineProps({
     <Head title="Welcome" />
 
     <div
-        class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"
+        class="relative flex flex-col space-y-8 justify-center items-start min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"
     >
         <div v-if="canLogin" class="flex flex-row space-x-8">
             <Link v-if="$page.props.auth.user" :href="route('dashboard')"
@@ -151,6 +151,13 @@ defineProps({
 
                 <Link :href="route('comments.create')">Create comment</Link>
             </template>
+        </div>
+        <div v-if="canLogin" class="flex flex-row space-x-8">
+            <div class="flex flex-col" v-if="$page.props.auth.user">
+                <Link :href="route('ui_messages.create')"
+                    >Create ui message</Link
+                >
+            </div>
         </div>
     </div>
 </template>

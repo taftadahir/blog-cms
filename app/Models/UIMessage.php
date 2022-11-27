@@ -6,18 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Language extends Model
+class UIMessage extends Model
 {
+	protected $table = 'ui_messages';
 	use HasFactory, SoftDeletes;
 
 	protected $fillable = [
-		'title',
-		'iso_code',
-		'active',
+		'code',
+		'value',
+		'description',
 	];
-
-	public function uIMessages()
-	{
-		return $this->hasMany(UIMessage::class, 'language_id');
-	}
 }
