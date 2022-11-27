@@ -11,4 +11,6 @@ Route::controller(CommentController::class)->name('comments.')->group(function (
 Route::controller(CommentController::class)->middleware('auth')->name('comments.')->group(function () {
 	Route::get('/comments/{comment}/edit', 'edit')->name('edit');
 	Route::put('/comments/{comment}', 'update')->name('update');
+
+	Route::delete('/comments/{comment}', 'destroy')->name('destroy');
 });

@@ -54,6 +54,12 @@ defineProps({
                 <Link :href="route('comments.edit', { comment: 1 })"
                     >Update comment 1</Link
                 >
+                <Link
+                    :href="route('comments.destroy', { comment: 1 })"
+                    as="button"
+                    method="delete"
+                    >Delete comment 1</Link
+                >
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('categories.create')">Create category</Link>
