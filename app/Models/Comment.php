@@ -14,6 +14,7 @@ class Comment extends Model
 		'name',
 		'email',
 		'content',
+		'status'
 	];
 
 	public function article()

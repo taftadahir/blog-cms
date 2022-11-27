@@ -6,12 +6,18 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Setting;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Inertia\Inertia;
 
 class CommentController extends Controller
 {
+	private $statuses = [
+		'default' => 'Default',
+		'approved' => 'Approved',
+		'disapproved' => 'Disapproved',
+	];
 	public function index()
 	{
 	}
@@ -20,12 +26,32 @@ class CommentController extends Controller
 	{
 		$articles = Article::all();
 		$comments = Comment::all();
-		return Inertia::render('Comment/Create', compact('articles', 'comments'));
+		return Inertia::render('Comment/Create', [
+			'articles' => $articles,
+			'comments' => $comments,
+			'statuses' => $this->statuses,
+		]);
 	}
 
 	public function store(StoreCommentRequest $request)
 	{
 		$validated = $request->validated();
+		$article = Article::find($validated['article_id']);
+
+		# if status is null, 
+		# check article comment status - use it only if not default
+		# check general comment status - use it even if default as it is last resort
+		if (!isset($validated['status'])) {
+			if (!is_null($article->default_comment_status) && $article->default_comment_status != 'default') {
+				$validated['status'] = $article->default_comment_status;
+			} else {
+				$commentStatusSetting = Setting::where('code', 'default_comment_status')->first();
+				if ($commentStatusSetting) {
+					$validated['status'] = $commentStatusSetting->value;
+				}
+			}
+		}
+
 		$comment = new Comment($validated);
 
 		if (isset($validated['parent_id'])) {
@@ -38,7 +64,6 @@ class CommentController extends Controller
 			$comment->user()->associate($user);
 		}
 
-		$article = Article::find($validated['article_id']);
 		$article->comments()->save($comment);
 		return redirect()->route(RouteServiceProvider::HOME);
 	}
@@ -51,7 +76,13 @@ class CommentController extends Controller
 	{
 		$articles = Article::all();
 		$comments = Comment::all();
-		return Inertia::render('Comment/Edit', compact('articles', 'comments', 'comment'));
+
+		return Inertia::render('Comment/Edit', [
+			'articles' => $articles,
+			'comments' => $comments,
+			'comment' => $comment,
+			'statuses' => $this->statuses,
+		]);
 	}
 
 	public function update(UpdateCommentRequest $request, Comment $comment)
@@ -60,7 +91,7 @@ class CommentController extends Controller
 
 		# remove required fields which are null in the validated data but it should not be null
 		$validated =  array_filter($validated, function ($value, $key) {
-			if ($key == 'content' || $key == 'article_id') {
+			if ($key == 'content' || $key == 'article_id' || $key == 'status') {
 				return !is_null($value);
 			}
 			return true;

@@ -3,17 +3,18 @@ import GuestLayout from '@/Layouts/GuestLayout.vue'
 import InputError from '@/Components/InputError.vue'
 import InputLabel from '@/Components/InputLabel.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
-import TextInput from '@/Components/TextInput.vue'
 import { Head, useForm } from '@inertiajs/inertia-vue3'
 const props = defineProps({
     articles: Object,
     comments: Object,
+    statuses: Object,
     comment: Object,
 })
 const form = useForm({
     article_id: props.comment.article_id,
     parent_id: props.comment.parent_id,
     content: props.comment.content,
+    status: props.comment.status,
 })
 const submit = () => {
     form.put(
@@ -67,6 +68,26 @@ const submit = () => {
                     />
                 </select>
                 <InputError class="mt-2" :message="form.errors.parent_id" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="status" value="Status" />
+                <select
+                    id="status"
+                    class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    v-model="form.status"
+                >
+                    <option :value="null" selected>
+                        --- Select an option ---
+                    </option>
+                    <option
+                        v-for="(value, key) in statuses"
+                        :key="key" 
+                        :value="key"
+                        v-text="value"
+                    />
+                </select>
+                <InputError class="mt-2" :message="form.errors.status" />
             </div>
 
             <div class="mt-4">

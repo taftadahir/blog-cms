@@ -17,6 +17,7 @@ class UpdateCommentRequest extends FormRequest
 			'parent_id' => ['nullable', 'integer', 'exists:App\Models\Comment,id'],
 			'article_id' => ['nullable', 'integer', 'exists:App\Models\Article,id'],
 			'content' => ['nullable', 'string'],
+			'status' => ['nullable', 'string'],
 		];
 	}
 }
