@@ -36,6 +36,9 @@ defineProps({
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('languages.create')">Create language</Link>
+                <Link :href="route('languages.edit', { language: 1 })"
+                    >Update language 1</Link
+                >
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('settings.create')">Create setting</Link>
