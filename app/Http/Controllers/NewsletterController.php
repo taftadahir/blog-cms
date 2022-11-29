@@ -44,5 +44,7 @@ class NewsletterController extends Controller
 
 	public function destroy(Newsletter $newsletter)
 	{
+		$newsletter->delete();
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 }

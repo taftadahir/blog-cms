@@ -9,4 +9,6 @@ Route::controller(NewsletterController::class)->middleware('auth')->name('newsle
 
 	Route::get('/newsletters/{newsletter}/edit', 'edit')->name('edit');
 	Route::put('/newsletters/{newsletter}', 'update')->name('update');
+
+	Route::delete('/newsletters/{newsletter}', 'destroy')->name('destroy');
 });
