@@ -32,10 +32,14 @@ class NewsletterController extends Controller
 
 	public function edit(Newsletter $newsletter)
 	{
+		return Inertia::render('Newsletter/Edit', compact('newsletter'));
 	}
 
 	public function update(UpdateNewsletterRequest $request, Newsletter $newsletter)
 	{
+		$validated = $request->validated();
+		$newsletter->update($validated);
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 
 	public function destroy(Newsletter $newsletter)

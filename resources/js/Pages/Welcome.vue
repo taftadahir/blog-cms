@@ -171,6 +171,9 @@ defineProps({
                 <Link :href="route('newsletters.create')"
                     >Create newsletter</Link
                 >
+                <Link :href="route('newsletters.edit', { newsletter: 1 })"
+                    >Update newsletter 1</Link
+                >
             </div>
         </div>
     </div>
