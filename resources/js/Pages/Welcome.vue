@@ -167,6 +167,11 @@ defineProps({
                     >Delete ui message 1</Link
                 >
             </div>
+            <div class="flex flex-col" v-if="$page.props.auth.user">
+                <Link :href="route('newsletters.create')"
+                    >Create newsletter</Link
+                >
+            </div>
         </div>
     </div>
 </template>

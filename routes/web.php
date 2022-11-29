@@ -32,3 +32,4 @@ require __DIR__ . '/setting.php';
 require __DIR__ . '/comment.php';
 require __DIR__ . '/language.php';
 require __DIR__ . '/ui_message.php';
+require __DIR__ . '/newsletter.php';
