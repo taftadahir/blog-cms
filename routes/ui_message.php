@@ -9,4 +9,6 @@ Route::controller(UIMessageController::class)->middleware('auth')->name('ui_mess
 
 	Route::get('/ui_messages/{uIMessage}/edit', 'edit')->name('edit');
 	Route::put('/ui_messages/{uIMessage}', 'update')->name('update');
+
+	Route::delete('/ui_messages/{uIMessage}', 'destroy')->name('destroy');
 });

@@ -64,5 +64,7 @@ class UIMessageController extends Controller
 
 	public function destroy(UIMessage $uIMessage)
 	{
+		$uIMessage->delete();
+		return redirect()->route(RouteServiceProvider::HOME);
 	}
 }

@@ -160,6 +160,12 @@ defineProps({
                 <Link :href="route('ui_messages.edit', { uIMessage: 1 })"
                     >Update ui message 1</Link
                 >
+                <Link
+                    :href="route('ui_messages.destroy', { uIMessage: 1 })"
+                    as="button"
+                    method="delete"
+                    >Delete ui message 1</Link
+                >
             </div>
         </div>
     </div>
