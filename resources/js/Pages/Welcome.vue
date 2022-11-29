@@ -157,6 +157,9 @@ defineProps({
                 <Link :href="route('ui_messages.create')"
                     >Create ui message</Link
                 >
+                <Link :href="route('ui_messages.edit', { uIMessage: 1 })"
+                    >Update ui message 1</Link
+                >
             </div>
         </div>
     </div>

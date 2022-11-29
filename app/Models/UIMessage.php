@@ -16,4 +16,9 @@ class UIMessage extends Model
 		'value',
 		'description',
 	];
+
+	public function language()
+	{
+		return $this->belongsTo(Language::class, 'language_id');
+	}
 }
