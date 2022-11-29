@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
 			SettingPermissionSeeder::class,
 			LanguageSeeder::class,
 			UIMessageSeeder::class,
+			CommentPermissionSeeder::class
 		]);
 	}
 }
