@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Article;
+use App\Models\ArticleStatus;
 use App\Models\Comment;
 use App\Models\Setting;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,10 +12,13 @@ class StoreCommentRequest extends FormRequest
 {
 	public function authorize()
 	{
-		if (auth()->guest()) {
-			$article = Article::where('id', $this->input('article_id'))->first();
-			$setting = Setting::where('code', 'disable_guest_comment')->first();
+		$article = Article::where('id', $this->input('article_id'))->first();
+		if ($article && $article->status == ArticleStatus::OUTDATED) {
+			return false;
+		}
 
+		if (auth()->guest()) {
+			$setting = Setting::where('code', 'disable_guest_comment')->first();
 			return $article && $setting && !$article->disable_guest_comment && $setting->value == 'false';
 		} else {
 			return  $this->user()->can('create', Comment::class);
