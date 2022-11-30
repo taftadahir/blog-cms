@@ -23,6 +23,7 @@ return new class extends Migration
 
 			$table->string('status', 16)->default('draft');
 			$table->boolean('disable_comment')->default(true);
+			$table->boolean('disable_guest_comment')->default(true);
 			$table->string('default_comment_status')->default('default');
 			$table->boolean('disable_approval')->default(true);
 			$table->unsignedTinyInteger('read_time')->nullable();
