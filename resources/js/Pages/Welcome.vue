@@ -63,6 +63,9 @@ defineProps({
             </div>
             <div class="flex flex-col" v-if="$page.props.auth.user">
                 <Link :href="route('comments.create')">Create comment</Link>
+                <Link :href="route('comments.show', { comment: 1 })"
+                    >Show comment 1</Link
+                >
                 <Link :href="route('comments.edit', { comment: 1 })"
                     >Update comment 1</Link
                 >

@@ -18,6 +18,7 @@ class CommentController extends Controller
 		'approved' => 'Approved',
 		'disapproved' => 'Disapproved',
 	];
+
 	public function index()
 	{
 	}
@@ -70,6 +71,8 @@ class CommentController extends Controller
 
 	public function show(Comment $comment)
 	{
+		$this->authorize('view', $comment);
+		return $comment;
 	}
 
 	public function edit(Comment $comment)
@@ -117,6 +120,7 @@ class CommentController extends Controller
 
 	public function destroy(Comment $comment)
 	{
+		$this->authorize('delete', $comment);
 		$comment->delete();
 		return redirect()->route(RouteServiceProvider::HOME);
 	}

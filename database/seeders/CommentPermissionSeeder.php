@@ -21,12 +21,12 @@ class CommentPermissionSeeder extends Seeder
 			'code' => 'view-any-comment',
 		]);
 		$updateAny = Permission::create([
-			'title' => 'Update comment any',
-			'code' => 'update-comment-any',
+			'title' => 'Update any comment',
+			'code' => 'update-any-comment',
 		]);
 		$deleteAny = Permission::create([
-			'title' => 'Delete comment any',
-			'code' => 'delete-comment-any',
+			'title' => 'Delete any comment',
+			'code' => 'delete-any-comment',
 		]);
 
 		# permissions role
