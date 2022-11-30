@@ -37,6 +37,7 @@ class Article extends Model
 
 	protected $casts = [
 		'disable_guest_comment' => 'boolean',
+		'disable_comment' => 'boolean',
 	];
 
 	protected $hidden = [];

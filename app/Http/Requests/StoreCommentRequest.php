@@ -13,13 +13,18 @@ class StoreCommentRequest extends FormRequest
 	public function authorize()
 	{
 		$article = Article::where('id', $this->input('article_id'))->first();
+		$settingDisableComment = Setting::where('code', 'disable_comment')->first();
+		if (($article && $article->disable_comment) || ($settingDisableComment && $settingDisableComment->value == 'true')) {
+			return false;
+		}
+
 		if ($article && $article->status == ArticleStatus::OUTDATED) {
 			return false;
 		}
 
 		if (auth()->guest()) {
-			$setting = Setting::where('code', 'disable_guest_comment')->first();
-			return $article && $setting && !$article->disable_guest_comment && $setting->value == 'false';
+			$settingDisableGuestComment = Setting::where('code', 'disable_guest_comment')->first();
+			return $article && $settingDisableGuestComment && !$article->disable_guest_comment && $settingDisableGuestComment->value == 'false';
 		} else {
 			return  $this->user()->can('create', Comment::class);
 		}
