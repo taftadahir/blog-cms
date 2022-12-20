@@ -28,6 +28,16 @@ class LanguageController extends Controller
 
 	public function show(Language $language)
 	{
+		# dd($language);
+		if (auth()->guest()) {
+			if (!$language->active) {
+				abort(401);
+			}
+		} else {
+			$this->authorize('view', $language);
+		}
+
+		return $language;
 	}
 
 	public function edit(Language $language)
@@ -53,6 +63,7 @@ class LanguageController extends Controller
 
 	public function destroy(Language $language)
 	{
+		$this->authorize('delete', $language);
 		$language->delete();
 		return redirect()->route(RouteServiceProvider::HOME);
 	}

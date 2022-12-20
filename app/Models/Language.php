@@ -16,6 +16,10 @@ class Language extends Model
 		'active',
 	];
 
+	protected $casts = [
+		'active' => 'boolean',
+	];
+
 	public function uIMessages()
 	{
 		return $this->hasMany(UIMessage::class, 'language_id');

@@ -8,87 +8,47 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class LanguagePolicy
 {
-    use HandlesAuthorization;
+	use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
+	private function viewAny(?User $user)
+	{
+		if ($user) {
+			return $user->hasPermission('view-any-language');
+		}
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Language  $language
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Language $language)
-    {
-        //
-    }
+		return false;
+	}
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        //
-    }
+	public function view(User $user, Language $language)
+	{
+		if ($this->viewAny($user)) {
+			return true;
+		}
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Language  $language
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, Language $language)
-    {
-        //
-    }
+		# dd($language);
+		return $language->active;
+	}
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Language  $language
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Language $language)
-    {
-        //
-    }
+	public function create(User $user)
+	{
+		return $user->hasPermission('create-language');
+	}
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Language  $language
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Language $language)
-    {
-        //
-    }
+	public function update(User $user)
+	{
+		return $user->hasPermission('update-language');
+	}
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Language  $language
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Language $language)
-    {
-        //
-    }
+	public function delete(User $user)
+	{
+		return $user->hasPermission('delete-language');
+	}
+
+	public function restore(User $user, Language $language)
+	{
+	}
+
+	public function forceDelete(User $user, Language $language)
+	{
+	}
 }
